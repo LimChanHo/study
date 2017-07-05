@@ -3,6 +3,8 @@ package com.test.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -81,6 +83,19 @@ public class UserServlet extends HttpServlet {
 			} else {
 				doProcess(resq, "값 똑바로 입력 안하냐잉~");
 			}
+		}else if(command.equals("SELECT")){
+			String name = req.getParameter("name");
+			System.out.println("이름 : " + name); 
+			HashMap hm = new HashMap();
+			if(name!=null && !name.equals("")){
+				hm.put("name", "%" + name + "%");
+			}
+			List<Map> userList = us.selectUser(hm);
+			String result = "";
+			for(Map m : userList){
+				result += m.toString();
+			}
+			doProcess(resq, result);
 		}
 
 	}
