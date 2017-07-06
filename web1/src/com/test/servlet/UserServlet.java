@@ -83,16 +83,16 @@ public class UserServlet extends HttpServlet {
 			} else {
 				doProcess(resq, "값 똑바로 입력 안하냐잉~");
 			}
-		}else if(command.equals("SELECT")){
+		} else if (command.equals("SELECT")) {
 			String name = req.getParameter("name");
-			System.out.println("이름 : " + name); 
+			System.out.println("이름 : " + name);
 			HashMap hm = new HashMap();
-			if(name!=null && !name.equals("")){
+			if (name != null && !name.equals("")) {
 				hm.put("name", "%" + name + "%");
 			}
 			List<Map> userList = us.selectUser(hm);
 			String result = "";
-			for(Map m : userList){
+			for (Map m : userList) {
 				result += m.toString();
 			}
 			doProcess(resq, result);

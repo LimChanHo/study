@@ -111,32 +111,37 @@ public class UserService {
 		}
 		return false;
 	}
-	public List<Map> selectUser(HashMap<String, String> hm){
+
+	public List<Map> selectUser(HashMap<String, String> hm) {
 		Connection con = null;
 		PreparedStatement ps = null;
 		try {
-			String sql = "select user_num, user_id, user_pwd, user_name, class_num from user_info";
-			if(hm.get("name")!=null){
-				sql += " where user_name like ?";
+			String sql = "select num, id, pwd, name, class_num from user_info";
+			if (hm.get("name") != null) {
+				sql += " where name like ?";
 			}
 			con = DBConn.getCon();
 			ps = con.prepareStatement(sql);
-			if(hm.get("name")!=null){
+			if (hm.get("name") != null) {
 				ps.setString(1, hm.get("name"));
 			}
 			ResultSet rs = ps.executeQuery();
 			List userList = new ArrayList();
-			while(rs.next()){
+			while (rs.next()) {
 				HashMap hm1 = new HashMap();
-				hm1.put("user_name", rs.getString("user_name"));
+				hm1.put("id", rs.getString("id"));
+				hm1.put("pwd", rs.getString("pwd"));
+				hm1.put("name", rs.getString("name"));
+				hm1.put("class_num", rs.getString("class_num"));
+
 				userList.add(hm1);
 			}
 			return userList;
-		}catch (ClassNotFoundException e) {
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally{
+		} finally {
 			try {
 				ps.close();
 				DBConn.closeCon();
