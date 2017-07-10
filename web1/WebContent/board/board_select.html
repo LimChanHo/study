@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script>
+function selectValue(){
+	
+	var titleObj = document.getElementById("title");
+	if(titleObj.value.trim()==""){
+	alert("제목 입력안해!! 죽어!!")
+	return false;
+	}
+}
+</script>
+
+<body>
+<form method="get"action="*.board" onsubmit="return selectValue()">
+	검색할 제목 :<input type="text" name="title" id="title" /><br/> 
+	<input type="submit" value="검색"/>
+	<input type="hidden"name="command"id="command"value="BOARD_SELECT"/>
+	</form>
+</body>
+</html>

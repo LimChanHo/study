@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form method="get"action="*.board" onsubmit="return deleteValue()">
+수정할  번호 : <input type="text" name="user_num" id="user_num"/></br>
+<table>
+
+<tr>
+	<td>writer</td>
+	<td><input type="text" name="writer" id="writer"/></td>
+</tr>
+<tr>
+	<td>title</td>
+	<td><input type="text" name="title" id="title"/></td>
+</tr>
+<tr>
+	<td>content</td>
+	<td><input type="text" name="content" id="content"/></td>
+</tr>
+</table>
+<input type="submit" value="수정"/>
+<input type="hidden" name="command" id="command" value="BOARD_UPDATE"/>
+</form>
+</body>
+</html>

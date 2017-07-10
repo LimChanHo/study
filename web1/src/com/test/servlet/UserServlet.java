@@ -19,8 +19,15 @@ public class UserServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resq) throws IOException, ServletException {
 		req.setCharacterEncoding("UTF-8");
+		
+		String name1 = req.getParameter("name");
+		String pwd1 = req.getParameter("pass");
+		System.out.println("intput html에서 너님이 던진값=>" + name1 + pwd1);
 		// html화면에서 던진 값을 각각 String 변수로 받기 시작
 		String command = req.getParameter("command");
+		if(command==null){
+			return;
+		}
 		UserService us = new UserService();
 
 		// UserService에 있는 insertUser(HashMap hm)이라는 함수를 호출하기 위해

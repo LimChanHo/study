@@ -11,22 +11,20 @@ import java.util.Map;
 
 import com.test.common.DBConn;
 
-public class UserService {
+public class BoardService {
 
-	public boolean insertUser(HashMap<String, String> hm) {
+	public boolean insertBoard(HashMap<String, String> hm) {
 		Connection con = null;
 		PreparedStatement ps = null;
 		try {
 			con = DBConn.getCon();
-			String sql = "insert into user_info(id, pwd, name, class_num, age)";
-			sql += " values(?,?,?,?,?)";
+			String sql = "insert into board(title, content, writer, reg_date)";
+			sql += " values(?,?,?,now())";
 
 			ps = con.prepareStatement(sql);
-			ps.setString(1, hm.get("id"));
-			ps.setString(2, hm.get("pwd"));
-			ps.setString(3, hm.get("name"));
-			ps.setString(4, hm.get("class_num"));
-			ps.setString(5, hm.get("age"));
+			ps.setString(1, hm.get("title"));
+			ps.setString(2, hm.get("content"));
+			ps.setString(3, hm.get("user_num"));
 			int result = ps.executeUpdate();
 			if (result == 1) {
 				con.commit();
@@ -52,7 +50,7 @@ public class UserService {
 		PreparedStatement ps = null;
 		try {
 			con = DBConn.getCon();
-			String sql = "delete from user_info";
+			String sql = "delete from board";
 			sql += " where num = ?";
 
 			ps = con.prepareStatement(sql);
@@ -84,13 +82,13 @@ public class UserService {
 		try {
 			con = DBConn.getCon();
 			String sql = "update board";
-			sql += " set name=?,class_num=?,age=? ";
+			sql += " set title=?,content=?,writer=? ";
 			sql += " where num = ?";
 			ps = con.prepareStatement(sql);
-			ps.setString(1, hm3.get("name"));
-			ps.setString(2, hm3.get("class_num"));
-			ps.setString(3, hm3.get("age"));
-			ps.setString(4, hm3.get("num"));
+			ps.setString(1, hm3.get("title"));
+			ps.setString(2, hm3.get("content"));
+			ps.setString(3, hm3.get("writer"));
+			ps.setString(4, hm3.get("user_num"));
 
 			int result = ps.executeUpdate();
 			if (result == 1) {
@@ -112,31 +110,30 @@ public class UserService {
 		return false;
 	}
 
-	public List<Map> selectUser(HashMap<String, String> hm) {
+	public List<Map> selectBoard(HashMap<String, String> hm) {
 		Connection con = null;
 		PreparedStatement ps = null;
 		try {
-			String sql = "select num, id, pwd, name, class_num from user_info";
-			if (hm.get("name") != null) {
-				sql += " where name like ?";
+			String sql = "select num, title, content, writer from board";
+			if (hm.get("title") != null) {
+				sql += " where title like ?";
 			}
 			con = DBConn.getCon();
 			ps = con.prepareStatement(sql);
-			if (hm.get("name") != null) {
-				ps.setString(1, hm.get("name"));
+			if (hm.get("title") != null) {
+				ps.setString(1, hm.get("title"));
 			}
 			ResultSet rs = ps.executeQuery();
-			List userList = new ArrayList();
+			List boardList = new ArrayList();
 			while (rs.next()) {
 				HashMap hm1 = new HashMap();
-				hm1.put("id", rs.getString("id"));
-				hm1.put("pwd", rs.getString("pwd"));
-				hm1.put("name", rs.getString("name"));
-				hm1.put("class_num", rs.getString("class_num"));
+				hm1.put("num", rs.getString("num"));
+				hm1.put("title", rs.getString("title"));
+				hm1.put("content", rs.getString("content"));
 
-				userList.add(hm1);
+				boardList.add(hm1);
 			}
-			return userList;
+			return boardList;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
