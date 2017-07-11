@@ -22,5 +22,13 @@
     <servlet-name>BoardServlet</servlet-name>
     <url-pattern>*.board</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>CalServlet</servlet-name>
+    <servlet-class>com.test.servlet.CalServlet</servlet-class>
+  </servlet>
+   <servlet-mapping>
+    <servlet-name>CalServlet</servlet-name>
+    <url-pattern>*.cal</url-pattern>
+  </servlet-mapping>
   
 </web-app>

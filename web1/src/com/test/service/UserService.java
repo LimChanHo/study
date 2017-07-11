@@ -129,6 +129,7 @@ public class UserService {
 			List userList = new ArrayList();
 			while (rs.next()) {
 				HashMap hm1 = new HashMap();
+				hm1.put("num", rs.getString("num"));
 				hm1.put("id", rs.getString("id"));
 				hm1.put("pwd", rs.getString("pwd"));
 				hm1.put("name", rs.getString("name"));
