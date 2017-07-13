@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script>
+	var Ajax = function(num1, num2) {
+		this.num1 = num1;
+		this.num2 = num2;
+		this.result = 0;
+
+		this.cal = function(op) {
+			cal2();
+			if (op == "+") {
+				this.result = this.num1 + this.num2;
+			}
+		}
+		cal2 = function() {
+			alert(1);
+		}
+	}
+	var ajax = new Ajax(3, 4);
+	ajax.cal("+");
+	alert(ajax.result)
+</script>
+<body>
+
+</body>
+</html>
