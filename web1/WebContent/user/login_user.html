@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script>
+function getHttpXmlObj(){
+	if(window.XMLHttpRequest){
+  		return new XMLHttpRequest();
+ 	}else if(window.ActiveXObject){
+  		return new ActiveXObject("Microsoft.XMLHTTP");
+ 	}
+	alert("해당 브라우져가  Ajax를 지원하지 않습니다.");
+}
+function checkLogin(){
+	var idStr = "userid,userpwd,command";
+	var lengthStr = "30,100,100";
+	
+	var params="?";
+	var ids = idStr.split(",");
+	var lengths = lengthStr.split(",");
+	
+	for(var i=0;i<ids.length;i++){
+		var maxLength = new Number(lengths[i]);
+		
+		var elObj =  document.getElementById(ids[i]);
+		if(!isNaN(maxLength)){
+			if(elObj.value.length>maxLength){
+				alert("제한길이를 넘었습니다. 확인해주세요");
+				elObj.value="";
+				elObj.focus();
+				return;
+			}
+		}
+		params += ids[i]+"="+ elObj.value +"&";
+	}
+	var xhr = getHttpXmlObj();
+	var method = "get";
+	var url = "test.user";
+	var aSync = true;
+	xhr.onreadystatechange=function(){
+   		if (xhr.readyState==4){
+   			if(xhr.status==200){
+	   			var result = decodeURIComponent(xhr.responseText);
+	   			alert(result);
+   			}else{
+   				document.getElementById("bd_div").innerHTML += xhr.responseText;
+   			}
+        }
+    }
+   	xhr.open(method, url+params, aSync);
+   	if(method=="post"){
+   		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+   	}
+   	xhr.send();
+}
+</script>
+<body>
+<div width="100%" id="bd_div">
+<table border="1" cellspacing="0" cellpadding="0" width="400" align="center">
+<tr>
+	<td align="center">아이디</td>
+	<td><input type="text" name="userid" id="userid"maxlegth="30"/></td>
+</tr>
+<tr>
+	<td align="center">비밀번호</td>
+	<td><input type="password" name="userpwd" id="userpwd" maxlength="100"/></td>
+</tr>
+<tr>
+	<td colspan="2" align="center"><input type="button" value="로그인" onclick="checkLogin()"/></td>
+</tr> 
+</table>
+</div>
+<input type="hidden" name="command" id="command" value="LOGIN"/><br/>
+
+	
+	
+
+</body>
+</html>

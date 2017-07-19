@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script>
+function makeInput(){
+	//미완성 
+	// To Do : makeCnt의 value값 만큼 input 박스를 만들어서
+	// gDiv의 innerHTML에 넣어야지
+	/*
+		4. 반복문이 동작하는 만큼 gDiv의 innerHTML에 input박스를 집어넣는다.
+	*/
+	var mcObj = document.getElementById("makeCnt");
+	var gdObj = document.getElementById("gDiv");
+	var resultStr ="";
+	for(var i=0;i<mcObj.value;i++){
+		resultStr += "<input type='text' name='txt'>";
+	}
+	gdObj.innerHTML = resultStr;
+}
+
+function searchInput(){
+	var str = document.getElementById("searchValue").value;
+	var elObjs = document.getElementsByName("txt");
+	for(var i=0;i<elObjs.length;i++){
+		var targetValue = elObjs[i].value;
+		var checkNum = new Number(elObjs[i].value);
+		if(targetValue.indexOf(str)!=-1){
+			alert("찾았다!!");
+			elObjs[i].focus();
+			elObjs[i].value ="";
+			return;
+		}
+	}
+	
+}
+</script>
+<body>
+
+<br><br><br><br><br>
+갱성 갯수 : <input type="text" name="makeCnt" id="makeCnt"/> 
+<input type="button" value="인풋박스생성" onclick="makeInput()"/>
+<div id="gDiv"></div>
+<input type="text" name="searchValue" id="searchValue"/>
+<input type="button" value="값을찾아라!" onclick="searchInput()">
+</body>
+</html>
