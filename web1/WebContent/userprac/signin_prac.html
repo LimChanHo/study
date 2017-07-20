@@ -5,7 +5,6 @@
 <title>Insert title here</title>
 </head>
 <script>
-
 function getHttpXmlObj(){
 	if(window.XMLHttpRequest){
   		return new XMLHttpRequest();
@@ -15,9 +14,9 @@ function getHttpXmlObj(){
 	alert("해당 브라우져가  Ajax를 지원하지 않습니다.");
 }
 function doSignin(){
-	var idStr = "userid,userpwd,username,address,hp1,hp2,hp3,age,command";
-	var lengthStr = "30,100,100,200,4,4,4,3,100";
-	var typeStr = "s,s,s,s,n,n,n,n,s";
+	var idStr = "userid,userpwd,username,age,address,hp1,hp2,hp3,command"
+	var lengthStr = "30,30,30,3,200,4,4,4,30";
+	var typeStr = "s,s,s,n,s,n,n,n,s";
 	var params="?";
 	var ids = idStr.split(",");
 	var lengths = lengthStr.split(",");
@@ -43,7 +42,7 @@ function doSignin(){
 			}
 		}
 		params += ids[i]+"="+ elObj.value +"&";
-	}
+}
 	var xhr = getHttpXmlObj();
 	var method = "get";
 	var url = "test.user";
@@ -66,43 +65,42 @@ function doSignin(){
 }
 </script>
 <body>
-<div width="100%" id="bd_div">
-<table border="1" cellspacing="0" cellpadding="0" width="400" align="center">
+<div width="100" id="bd_div">
+<table border="1" width="400" align="center">
 <tr>
-	<td colspan="2"><p align="center"> = 회원 가입 = </p></td>
+    <td colspan="2"><p align="center"> =회원가입= </p></td>
 </tr>
 <tr>
-	<td align="center">아이디</td>
-	<td><input type="text" name="userid" id="userid" maxlegth="30"/></td>
+    <td align="center">아이디</td>
+    <td align="center"><input type="text" name="userid" id="userid"></td>
 </tr>
 <tr>
-	<td align="center">비밀번호</td>
-	<td><input type="password" name="userpwd" id="userpwd" maxlength="100"/></td>
+    <td align="center">비밀번호</td>
+    <td align="center"><input type="password" name="userpwd" id="userpwd"></td>
 </tr>
 <tr>
-	<td align="center">이름</td>
-	<td><input type="text" name="username" id="username" maxlength="100"/></td>
-<tr>
-<tr>
-	<td align="center">주소</td>
-	<td><input type="text" name="address" id="address" size="35"/></td>
+    <td align="center">이름</td>
+    <td align="center"><input type="text" name="username" id="username"></td>
 </tr>
 <tr>
-	<td align="center">휴대폰번호</td>
-	<td><input type="text" name="hp1" id="hp1" size="4" maxlength="4"/> 
-	- <input type="text" name="hp2" id="hp2"size="4" maxlength="4"/>
-	 - <input type="text" name="hp3" id="hp3"size="4" maxlength="4"/></td>
+<td align="center">나이</td>
+<td align="center"><input type="text" name ="age" id="age"></td>
 </tr>
 <tr>
-	<td align="center">나이</td>
-	<td><input type="text" name="age" id="age" size="3" maxlength="3"/></td>
+<td align="center">주소</td>
+<td align="center"><input type="text" name="address" id="address"></td>
 </tr>
 <tr>
-	<td colspan="2" align="center"><input type="button" value="회원가입" onclick="doSignin()"/></td>
-</tr> 
+    <td align="center">휴대폰 번호</td>
+    <td align="center"><input type="text" name="hp1" id="hp1" size="4">-<input type="text" name="hp2" id="hp2" size="4">-<input type="text" name="hp3" id="hp3" size="4"></td>
+</tr>
+<tr>
+<td colspan="2" align="center"><input type="button" value="회원가입" onclick="doSignin()"/></td>
+</tr>
+    
+
 </table>
 </div>
-<input type="hidden" name="command" id="command" value="SIGNIN"/><br/>
-
+<input type="hidden" name="command" id="command" value="SIGNIN"><br/>
 </body>
 </html>

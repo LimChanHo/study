@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.test.service.UserService;
 
-public class UserServlet extends HttpServlet {
+public class UserServlet extends HttpServlet {//httpservlet을 상속받아야 그때부터
 
 	private static final long serialVersionUID = 1L;
 
@@ -82,7 +82,7 @@ public class UserServlet extends HttpServlet {
 				result = "안됬네 안됬어!!";
 			}
 			doProcess(resq, result);
-		} else if (command.equals("UPDATE")) {
+		}else if (command.equals("UPDATE")) {
 			String user_num = req.getParameter("user_num");
 			System.out.println("업데이트할 번호 : " + user_num);
 
@@ -99,54 +99,22 @@ public class UserServlet extends HttpServlet {
 			// html화면에서 던진 age값을 "age"라는 키로 해쉬맵에 저장
 			hm.put("age", age);
 		} else if (command.equals("SELECT")) {
-			String name = req.getParameter("name");
+			String name = req.getParameter("username");
 			System.out.println("이름 : " + name);
 			HashMap hm = new HashMap();
 			if (name != null && !name.equals("")) {
 				hm.put("name", "%" + name + "%");
 			}
-			List<Map> userList = us.selectUser(hm);
-			String result="<script>";
-
-			result += "function deleteUser(userNum){";
-			result += "location.href='delete.user?command=DELETE&user_num=' + userNum;";
-			result += "}";
-			result += "</script>";
-			result += "<form action='/test_web/sign.user'>";
-			result += "이름 : <input type='text' name='name' id='name'/> <input type='submit' value='검색'/>";
-			result += "<input type='hidden' name='command' value='SELECT'/>";
-			result += "</form>";
-			result += "<table border='1'>";
-			result += "<tr>";
-			result += "<td>유저번호</td>";
-			result += "<td>유저아이디</td>";
-			result += "<td>유저비밀번호</td>";
-			result += "<td>유저이름</td>";
-			result += "<td>클래스번호</td>";
-			result += "<td>삭제버튼</td>";
-			result += "</tr>";
-			for (Map m : userList) {
-				result += "<tr align='center'>";
-				result += "<td>" + m.get("user_num") + "</td>";
-				result += "<td>" + m.get("user_id") + "</td>";
-				result += "<td>" + m.get("user_pwd") + "</td>";
-				result += "<td>" + m.get("user_name") + "</td>";
-				result += "<td>" + m.get("class_num") + "</td>";
-				result += "<td><input type='button' value='삭제' onclick='deleteUser(" + m.get("user_num") + ")'/></td>";
-				result += "</tr>";
+			List<Map> userList  = us.selectUser(hm);
+			String result="번호{/}이름{/}아이디{/}나이{+}";
+			result+="dis{/}en{/}en{/}en{+}";
+			for(Map m : userList){
+				result += m.get("usernum") + "{/}" + m.get("username") + "{/}" + m.get("userid") + "{/}" + m.get("age") + "{+}"; 
 			}
-			result += "</table>";
+			result = result.substring(0, result.length()-3);
 			doProcess(resq, result);
-		} else if (command.equals("LOGIN")) {
-			String userId = req.getParameter("userid");
-			String userPwd = req.getParameter("userpwd");
-			HashMap hm = new HashMap();
-			hm.put("userid", userId);
-			hm.put("userpwd", userPwd);
-			doProcess(resq,us.loginUser(hm));
-			
-			
 		}
+
 	}
 
 	public void dePost(HttpServletRequest req, HttpServletResponse reqs) throws IOException {
