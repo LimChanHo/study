@@ -5,39 +5,23 @@
 <title>Insert title here</title>
 </head>
 <script>
-function getHttpXmlObj(){
-	if(window.XMLHttpRequest){
-  		return new XMLHttpRequest();
- 	}else if(window.ActiveXObject){
-  		return new ActiveXObject("Microsoft.XMLHTTP");
- 	}
-	alert("해당 브라우져가  Ajax를 지원하지 않습니다.");
+function doUpdate(userNum){
+	var userName = document.getElementById("r"+ userNum + 1).value;
+	var userId = document.getElementById("r"+ userNum + 2).value;
+	var age = document.getElementById("r"+ userNum + 3).value;
+	var command = "UPDATE"
+	params = "?usernum=" + userNum + "&username=" + userName + "&userid=" + userId + "&age=" + age + "&command=" + command;
+	var au = new AjaxUtil(params);
+	au.send();
 }
-
 function doDelete(userNum){
-	var deleteNum = userNum;
-	var idStr = "command";
-	var lengthStr = "30,100";
-	var typeStr = "n,s"
-	
-	var params="?";
-	var ids = idStr.split(",");
-	var lengths = lengthStr.split(",");
-	
-	for(var i=0;i<ids.length;i++){
-		var maxLength = new Number(lengths[i]);
-		
-		var elObj =  document.getElementById(ids[i]);
-		if(!isNaN(maxLength)){
-			if(elObj.value.length>maxLength){
-				alert("제한길이를 넘었습니다. 확인해주세요");
-				elObj.value="";
-				elObj.focus();
-				return;
-			}
-		}
-		params += ids[i]+"="+ elObj.value +"&";
+	var isDelete = confirm(userNum + "을 삭제할라고요~?");
+	if(isDelete){
+		var command = "DELETE";
+		var params = "?usernum=" + userNum + "&command=" + command;
 	}
+	var au = new AjaxUtil(params);
+	au.send();
 }
 function doSelect(){
 	var idStr = "username,command";
@@ -69,14 +53,12 @@ function doSelect(){
 		}
 		params += ids[i]+"="+ elObj.value +"&";
 	}
-	var xhr = getHttpXmlObj();
-	var method = "get";
-	var url = "test.user";
-	var aSync = true;
-	xhr.onreadystatechange=function(){
-   		if (xhr.readyState==4){
-   			if(xhr.status==200){
-	   			var result = decodeURIComponent(xhr.responseText);
+
+	var au = new AjaxUtil(params);
+	au.changeCallBack(function(){
+   		if (au.xhr.readyState==4){
+   			if(au.xhr.status==200){
+	   			var result = decodeURIComponent(au.xhr.responseText);
 	   			var rows = result.split("{+}");
 	   			var tdEnables = rows[1].split("{/}");
 	   			var tableStr ="<table border='1'>";
@@ -92,12 +74,12 @@ function doSelect(){
 	   						userNum = columns[j];
 	   					}
 	   					if(i==0){
-	   						tableStr += "<td>" + columns[j] + "</td>"
+	   						tableStr += "<td>" + columns[j] + "</td>";
 	   					}else{
 	   						if(tdEnables[j]=="en"){
-	   							tableStr += "<td><input type='text' value='" + columns[j] + "'/></td>"
+	   							tableStr += "<td><input type='text' value='" + columns[j] + "' id='r" + userNum + j + "'/></td>";
 	   						}else{
-		   						tableStr += "<td>" + columns[j] + "</td>"
+		   						tableStr += "<td>" + columns[j] + "</td>";
 	   						}
 	   					}
 	   				}
@@ -106,32 +88,29 @@ function doSelect(){
    						tableStr += "<td>수정</td>";
    					}else{
    						tableStr += "<td><input type='button' value='삭제' onclick='doDelete(" + userNum + ")'/></td>";
-   						tableStr += "<td><input type='button' value='수정'/></td>";
+   						tableStr += "<td><input type='button' value='수정' onclick='doUpdate(" + userNum + ")'/></td>";
    					}
 	   				tableStr += "</tr>";
 	   			}
 	   			if(rows.length==1){
-	   				tableStr += "<tr><td colspan='3'>니가 검색한거 없어 임마</td></tr>"
+	   				tableStr += "<tr><td colspan='3'>니가 검색한거 없어 임마</td></tr>";
 	   			}
 	   			tableStr+="</table>";
-	   			document.getElementById("bd_div").innerHTML += tableStr;
+	   			document.getElementById("bd_div").innerHTML = tableStr;
    			}else{
-   				document.getElementById("bd_div").innerHTML += xhr.responseText;
+   				document.getElementById("bd_div").innerHTML = xhr.responseText;
    			}
         }
-    }
-   	xhr.open(method, url+params, aSync);
-   	if(method=="post"){
-   		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-   	}
-   	xhr.send();
+    });
+	au.send();
 }
 </script>
 <body>
 이름 : <input type="text" name="username" id="username"/> <input type="button" value="검색" onclick="doSelect()"/>
 <input type="hidden" name="command"  id="command"value="SELECT"/>
-<input type="hidden" name="command"  id="command"value="DELETE"/>
-
 <div id="bd_div"></div>
+<script>
+doSelect();
+</script>
 </body>
 </html>
