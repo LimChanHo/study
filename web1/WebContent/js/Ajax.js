@@ -1,6 +1,7 @@
 /**
  * 
  */
+
 var AjaxUtil = function(params){
 	this.params = params;
 	

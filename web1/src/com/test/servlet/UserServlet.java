@@ -15,12 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 import com.test.dto.UserInfo;
 import com.test.service.UserService;
 
-public class UserServlet extends HttpServlet {//httpservlet을 상속받아야 그때부터
+public class UserServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resq) throws IOException, ServletException {
-req.setCharacterEncoding("UTF-8");
+		req.setCharacterEncoding("UTF-8");
 		
 		//request도 map을 가지고 있으며 
 		//keyset의 iterator를 사용하여 while문(반복문)을 돌리게 되면

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<script>
+	function click(){
+		alert(1);
+	}
+	function setClick1(func){
+		alert(func);
+		click1 = func;
+	}
+	function click2(){
+		setClick1(function(){
+			alert(2);
+		});
+	}
+	
+	</script>
+	
+	<input type="button" value="1나와라!" onclick="click1()"/><br/>
+	<input type="button" value="2나와라!" onclick="click2()"/><br/>
+</body>
+</html>

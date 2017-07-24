@@ -16,24 +16,12 @@ public class DBConn {
 		}
 		return con;
 	}
-//	 public static void main(String[] args) {
-//	 try {
-//	 Connection con = DBConn.getCon();
-//	 System.out.println("접속 됬네잉!!" + con);
-//	 DBConn.closeCon();
-//	
-//	 System.out.println("종료 됬다네잉~!" + con);
-//	 } catch (Exception e) {
-//	 e.printStackTrace();
-//	 }
-//	 }
-
 	public static void closeCon() throws SQLException {
-
+		System.out.println(con);
 		if (con != null) {
 			con.close();
 			con = null;
 		}
-
+		System.out.println(con);
 	}
 }

@@ -19,21 +19,20 @@ function cal(){
 	}else if(op=="*"){
 		result = num1 * num2;
 	}
-	document.getElementById("result").value = result
+	document.getElementById("result").value = result;
 }
 </script>
 <body>
 	<table border="1">
 		<tr>
-			<td>num1 : <input type="text" name="num1" id="num1" /></td>
-			<td>계산식 : <input type="text" name="op" id="op" /></td>
-			<td>num2 : <input type="text" name="num2" id="num2" /></td>
-			<td>결과값 : <input type="text" name="result" id="result" disabled /></td>
+			<td>num1 : <input type="text" name="num1" id="num1"/></td>
+			<td>계산식 : <input type="text" name="op" id="op"/></td>
+			<td>num2 : <input type="text" name="num2" id="num2"/></td>
+			<td>결과값 : <input type="text" name="result" id="result" disabled/></td>
 		</tr>
 		<tr>
-			<td colspan="4" align="center"><input type="button" value="계산하기" onclick="cal()" /></td>
+			<td colspan="4" align="center"><input type="button" value="계산하기" onclick="cal()"/></td>
 		</tr>
 	</table>
-
 </body>
 </html>

@@ -1,7 +1,17 @@
 package com.test.dto;
 
 public class UserInfo {
-	
+/*
+ * `usernum` INT(5) NOT NULL AUTO_INCREMENT,
+	`userid` VARCHAR(30) NOT NULL,
+	`username` VARCHAR(100) NOT NULL,
+	`age` INT(1) NOT NULL,
+	`address` VARCHAR(200) NOT NULL,
+	`hp1` CHAR(4) NULL DEFAULT NULL,
+	`hp2` CHAR(4) NULL DEFAULT NULL,
+	`hp3` CHAR(4) NULL DEFAULT NULL,
+	`userpwd` VARCHAR(100) NOT NULL,
+ */
 	private int userNum;
 	private String userId;
 	private String userName;
@@ -12,11 +22,11 @@ public class UserInfo {
 	private String hp3;
 	private String userPwd;
 	
-	public int getUserNum() {
+	public int getUserNum(){
 		return userNum;
 	}
-
-	public void setUserNum(int userNum) {
+	
+	public void setUserNum(int userNum){
 		this.userNum = userNum;
 	}
 
@@ -83,9 +93,4 @@ public class UserInfo {
 	public void setUserPwd(String userPwd) {
 		this.userPwd = userPwd;
 	}
-
-
-	
-
-	
 }
