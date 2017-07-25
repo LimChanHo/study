@@ -58,12 +58,12 @@ if(id!=null && pwd!=null){
 	out.println(result);
 }else{
 	// 세션 초기화
+	result = "로그아웃 되셨습니다.";
 	session.invalidate();
 }
 %>
 <script>
-var result = "<%=result%>";
-alert(result);
+alert("<%=result%>");
 location.href="/user/login.jsp";
 </script>
 </body>
