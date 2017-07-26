@@ -51,6 +51,12 @@ if(id!=null && pwd!=null){
 		}
 	}catch(Exception e){
 		System.out.println(e);
+	}finally{
+		if(ps!=null){
+			ps.close();
+			ps = null;
+		}
+		DBConn.closeCon();
 	}
 	if(result.equals("")){
 		result =  "그런 아이디 없다잖아!!";

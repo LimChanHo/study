@@ -51,6 +51,10 @@ function doMovePage(pageId){
 		url = rootPath + "/";
 	}else if(pageId="board_insert"){
 		url = rootPath + "/board/board_insert.jsp"
+	}else if(pageId=="delete"){
+		url = rootPath + "/board/board_delete.jsp";
+	}else if(pageId="update"){
+		url = rootPath + "/board/board_update.jsp"
 	}
 	location.href=url;
 }
