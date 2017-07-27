@@ -14,7 +14,6 @@ public void printStr(String str){
 }
 %>
 <%
-
 String userId = (String) session.getAttribute("userid");
 String userName = "";
 int age =  0;
@@ -22,7 +21,6 @@ String address =  "";
 String hp1 =  "";
 String hp2 =  "";
 String hp3 =  "";
-
 
 boolean login = false;
 if(userId!=null){
@@ -38,23 +36,25 @@ String rootPath = request.getContextPath();
 Date toDate = new Date();
 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 String toDateStr = sdf.format(toDate); 
+String init = request.getParameter("init");
+String defaultUrl = "";
+if(init==null && !login){
+	defaultUrl = rootPath + "/user/login.jsp?init=2";
+	response.sendRedirect(defaultUrl);
+}
 %>
 <script src="<%=rootPath%>/js/jquery-3.2.1.js"></script>
 <script>
 var rootPath = "<%=rootPath%>";
 
 function doMovePage(pageId){
-	var url = "";
+	var url = "<%=rootPath%>";
 	if(pageId=="board"){
-		url = rootPath + "/board/board_select.jsp";
+		url += "/board/board_select.jsp";
 	}else if(pageId=="main"){
-		url = rootPath + "/";
-	}else if(pageId="board_insert"){
-		url = rootPath + "/board/board_insert.jsp"
-	}else if(pageId=="delete"){
-		url = rootPath + "/board/board_delete.jsp";
-	}else if(pageId="update"){
-		url = rootPath + "/board/board_update.jsp"
+		url += "/";
+	}else if(pageId=="insertBoard"){
+		url += "/board/board_insert.jsp";
 	}
 	location.href=url;
 }

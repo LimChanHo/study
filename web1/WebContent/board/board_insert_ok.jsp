@@ -3,68 +3,47 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 <%@ page import="com.test.common.DBConn" %>
-<%@ page import="com.test.dto.BoardInfo" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ page import="com.test.dto.UserInfo" %>
 <%
-
-String bititle = request.getParameter("bititle");
-String bicontent = request.getParameter("bicontent");
+String biTitle = request.getParameter("bititle");
+String biContent = request.getParameter("bicontent");
+String biPwd = request.getParameter("bipwd");
 String creusr = request.getParameter("creusr");
-String bipwd = request.getParameter("bipwd");
-String result1 = "";
+String tableName = request.getParameter("tableName");
+String sql = "insert into board_info(bititle, bicontent, bipwd, creusr,credat)";
+sql += " values(?,?,?,?,now())";
 
-
-if(bititle!=null && bicontent!=null && creusr!=null && bipwd!=null){
-	
-	BoardInfo bi = new BoardInfo();
-	bi.setBititle(bititle);
-	bi.setBicontent(bicontent);
-	bi.setCreusr(creusr);
-	bi.setBipwd(bipwd);
-	
-	Connection con = null;
-	PreparedStatement ps = null;
-	try{
-		con = DBConn.getCon();
-		String sql = "insert into board_info(bititle,bicontent,creuser,bipwd,credat)";
-		sql += " values(?,?,?,?,now())";
-		ps = con.prepareStatement(sql);
-		ps.setString(1, bi.getBititle());
-		ps.setString(2, bi.getBicontent());
-		ps.setString(3, bi.getCreusr());
-		ps.setString(4, bi.getBipwd());
-		int result = ps.executeUpdate();
-		if(result==1){
-			con.commit();
-			result1 =  "저장성공";
-		}else{
-			result1 =  "저장실패";
-		}
-	} catch (ClassNotFoundException e) {
-		e.printStackTrace();
-	} catch (SQLException e) {
-		e.printStackTrace();
-	}finally{
-		if(ps!=null){
-			ps.close();
-			ps = null;
-		}
-		DBConn.closeCon();
+Connection con = null;
+PreparedStatement ps = null;
+String result = "저장 안된거 같다?";
+int resultNum =0;
+try{
+	con = DBConn.getCon();
+	ps = con.prepareStatement(sql);
+	ps.setString(1, biTitle);
+	ps.setString(2, biContent);
+	ps.setString(3, biPwd);
+	ps.setString(4, creusr);
+	resultNum = ps.executeUpdate();
+	if(resultNum==1){
+		result = "정상적으로 저장 되었습니다.";
+		con.commit();
 	}
-	
-	
+}catch(Exception e){
+	System.out.println(e);
+}finally{
+	if(ps!=null){
+		ps.close();
+		ps = null;
+	}
+	DBConn.closeCon();
 }
 %>
 <script>
-alert("<%=result1%>");
-location.href="/board/board_select.jsp";
+alert("<%=result%>");
+if(<%=resultNum%> == 1){
+	location.href= "<%=rootPath%>/board/board_select.jsp";
+}else{
+	history.back();
+}
 </script>
-
-</body>
-</html>
