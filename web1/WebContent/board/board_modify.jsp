@@ -41,11 +41,21 @@
 			credat = rs.getString("credat");
 			bipwd = rs.getString("bipwd");
 			if(!bipwd.equals(pBiPwd)){
+				out.println("<script>");
+				out.println("alert(" +pBinum + ");" );
+				out.println("history.back();" );
+				out.println("</script>");
+				//out.println("< % JSP태그다 이자식아!! % >");
+			}else{
 %>
-				<script>
-					alert("<%=pBinum%>번 게시물은 비밀번호가 틀렸어 임마!!");
-					history.back();
-				</script>
+<form method="get" action="<%=rootPath%>/board/board_modify_ok.jsp" >
+제목 : <input type="text" name="bititle" id="bititle" value="<%=bititle%>"/><br/>
+내용 : <textarea name="bicontent" id="bicontent"><%=bicontent%></textarea><br/>
+글쓴이 : <input type="text" name="creusr" id="creusr" value="<%=creusr%>"/><br/>
+비밀번호 : <input type="password" name="bipwd" id="bipwd" value="<%=bipwd%>"/><br/>
+<input type="hidden" value="<%=binum%>" name="binum"/>
+<input type="submit" value="수정하기"/>
+</form>
 <%
 			}
 		}
@@ -61,13 +71,6 @@
 
 %>
 <body>
-<form method="get" action="<%=rootPath%>/board/board_modify_ok.jsp" >
-제목 : <input type="text" name="bititle" id="bititle" value="<%=bititle%>"/><br/>
-내용 : <textarea name="bicontent" id="bicontent"><%=bicontent%></textarea><br/>
-글쓴이 : <input type="text" name="creusr" id="creusr" value="<%=creusr%>"/><br/>
-비밀번호 : <input type="password" name="bipwd" id="bipwd" value="<%=bipwd%>"/><br/>
-<input type="hidden" value="<%=binum%>" name="binum"/>
-<input type="submit" value="수정하기"/>
-</form>
+
 </body>
 </html>

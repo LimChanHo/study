@@ -4,8 +4,16 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<script src="/js/Ajax.js"></script>
 <script>
+
+function getHttpXmlObj(){
+	if(window.XMLHttpRequest){
+  		return new XMLHttpRequest();
+ 	}else if(window.ActiveXObject){
+  		return new ActiveXObject("Microsoft.XMLHTTP");
+ 	}
+	alert("해당 브라우져가  Ajax를 지원하지 않습니다.");
+}
 function doSignin(){
 	var idStr = "userid,userpwd,username,address,hp1,hp2,hp3,age,command";
 	var lengthStr = "30,100,100,200,4,4,4,3,100";
@@ -36,10 +44,28 @@ function doSignin(){
 		}
 		params += ids[i]+"="+ elObj.value +"&";
 	}
-	var au = new AjaxUtil(params);
- 	au.send();
+	var xhr = getHttpXmlObj();
+	var method = "get";
+	var url = "test.user";
+	var aSync = true;
+	xhr.onreadystatechange=function(){
+   		if (xhr.readyState==4){
+   			if(xhr.status==200){
+	   			var result = decodeURIComponent(xhr.responseText);
+	   			alert(result);
+   			}else{
+   				document.getElementById("bd_div").innerHTML += xhr.responseText;
+   			}
+        }
+    }
+	document.getElementById("bd_div").innerHTML = url+params;
+	return;
+   	xhr.open(method, url+params, aSync);
+   	if(method=="post"){
+   		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
    	}
-
+   	xhr.send();
+}
 </script>
 <body>
 <div width="100%" id="bd_div">

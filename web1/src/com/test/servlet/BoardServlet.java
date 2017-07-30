@@ -34,8 +34,8 @@ public class BoardServlet extends HttpServlet{
 	
 	public void doProcess(HttpServletResponse resq, String writeStr) throws IOException {
 		resq.setContentType("text/html; charset = UTF-8");
-		PrintWriter out = resq.getWriter();
-		out.print(writeStr);
+		PrintWriter out1 = resq.getWriter();
+		out1.print(writeStr);
 		
 	}
 }

@@ -118,6 +118,20 @@ public class UserServlet extends HttpServlet {
 		resq.setContentType("text/html; charset = UTF-8");
 		PrintWriter out = resq.getWriter();
 		out.print(writeStr);
+		
+		String str = "<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN' 'http://www.w3.org/TR/html4/loose.dtd'>";
+				str += "<html>";
+				str += "<head>";
+				out.print(str);
+//<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+//<title>Insert title here</title>
+//</head>
+//<body>
+//<%
+//out.println('아마추어같이 왜이래??');
+//%>
+//</body>
+//</html>'
 
 	}
 }

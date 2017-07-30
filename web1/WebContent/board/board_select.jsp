@@ -5,6 +5,7 @@
 <%@ page import="com.test.common.DBConn" %>
 <%@ page import="com.test.dto.BoardInfo" %>
 <body>
+<jsp:include page="/common/top.jsp" flush="fasle"></jsp:include>
 <script>
 function goBoard(biNum,param2){
 	location.href ="<%=rootPath%>/board/board_view.jsp?binum=" + biNum;
@@ -15,6 +16,8 @@ function doSearch(){
 	location.href ="<%=rootPath%>/board/board_select.jsp?searchTarget=" + searchTarget + "&searchStr=" + searchStr;
 }
 </script>
+    <div class="container">
+      <div class="starter-template">
  <%
 	String searchTarget = request.getParameter("searchTarget");
 	String searchStr = request.getParameter("searchStr");
@@ -43,8 +46,20 @@ function doSearch(){
 			}
 		}
 		ResultSet rs = ps.executeQuery();
-		String tableStr="<table border='1'>";
+		String tableStr="<table class='table table-bordered table-hover'>";
 		tableStr += "<tr>";
+		tableStr += "<td colspan='6' align='center'>";
+		tableStr += "<select name='searchTarget' id='searchTarget'>";
+		tableStr += "<option value='bititle'>제목</option>";
+		tableStr += "<option value='creusr'>작성자</option>";
+		tableStr += "<option value='bicontent'>내용</option>";
+		tableStr += "<option value='bicontitle'>제목 + 내용</option>";
+		tableStr += "</select> ";
+		tableStr += " <input type='text' name='searchStr' id='searchStr'/> ";
+		tableStr += " <a href='#' class='btn btn-default' onclick='doSearch()'>검색</a>";
+		tableStr += "</td>";
+		tableStr += "</tr>";
+		tableStr += "<tr align='center'>";
 		tableStr += "<td>번호</td>";
 		tableStr += "<td>제목</td>";
 		tableStr += "<td>비밀번호</td>";
@@ -66,19 +81,6 @@ function doSearch(){
 			tableStr += "<tr>";
 			tableStr += "<td colspan='6' align='center'>데이터가 아무것도 없다!!!</td>";
 			tableStr += "</tr>";
-		}else{
-			tableStr += "<tr>";
-			tableStr += "<td colspan='6' align='center'>";
-			tableStr += "<select name='searchTarget' id='searchTarget'>";
-			tableStr += "<option value='bititle'>제목</option>";
-			tableStr += "<option value='creusr'>작성자</option>";
-			tableStr += "<option value='bicontent'>내용</option>";
-			tableStr += "<option value='bicontitle'>제목 + 내용</option>";
-			tableStr += "</select> ";
-			tableStr += " <input type='text' name='searchStr' id='searchStr'/> ";
-			tableStr += " <input type='button' value='검색' onclick='doSearch()'/>";
-			tableStr += "</td>";
-			tableStr += "</tr>";
 		}
 		tableStr += "</table>";
 		out.println(tableStr);
@@ -94,5 +96,7 @@ function doSearch(){
 	%>
 	<input type="button" value="게시글 작성" onclick="doMovePage('insertBoard')"/>
 	<input type="button" value="메인가기" onclick="doMovePage('main')"/>
+	</div>
+</div>
 </body>
 </html>

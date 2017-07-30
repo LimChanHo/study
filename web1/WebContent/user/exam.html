@@ -6,22 +6,20 @@
 </head>
 <body>
 	<script>
-	function click(){
-		alert(1);
+	var AjaxUtil = function(num){
+		this.num = num;
+		
+		this.getNum = function(){
+			return this.num;
+		}
 	}
-	function setClick1(func){
-		alert(func);
-		click1 = func;
-	}
-	function click2(){
-		setClick1(function(){
-			alert(2);
-		});
-	}
+	
+	var au = new AjaxUtil(3);
+	au.getNum = 4;
+	alert(au.getNum());
 	
 	</script>
-	
-	<input type="button" value="1나와라!" onclick="click1()"/><br/>
-	<input type="button" value="2나와라!" onclick="click2()"/><br/>
+	<input type="button" value="1나와라!" onclick="click1(1)"/><br/>
+	<input type="button" value="2나와라!" onclick="click2(3)"/><br/>
 </body>
 </html>
