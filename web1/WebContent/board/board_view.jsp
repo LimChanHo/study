@@ -79,9 +79,7 @@
 			<td><input type="password" name="bipwd" id="bipwd" /></td>
 		</tr>
 		<tr>
-			<td colspan="2"><input type="button" value="수정"
-				onclick="modifyBoard()" /> <input type="button" value="삭제"
-				onclick="deleteBoard()" /></td>
+			<td colspan="2"><input type="button" value="수정" onclick="modifyBoard()" /> <input type="button" value="삭제" onclick="deleteBoard()" /></td>
 		</tr>
 	</table>
 	</div>
