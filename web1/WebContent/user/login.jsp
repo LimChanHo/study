@@ -6,9 +6,7 @@
 <%@ page import="com.test.dto.UserInfo"%>
 <link rel="stylesheet" href="<%=rootPath%>/ui/signin.css" />
 <body>
-	<jsp:include page="/common/top.jsp" flush="false">
-		<jsp:param name="login" value="<%=login%>"></jsp:param>
-	</jsp:include>
+	
 	<div class="container">
 		<form class="form-signin" action="<%=rootPath%>/user/login_ok.jsp">
 			<h2 class="form-signin-heading">Please login</h2>
@@ -36,25 +34,32 @@
 		param["id"] = id;
 		param["pwd"] = pwd;
 		param = JSON.stringify(param);
-		$.ajax({ 
-	        type     : "POST"
-	    ,   url      : "/user/login_ok.jsp"
-	    ,   dataType : "json" 
-	    ,   beforeSend: function(xhr) {
-	        xhr.setRequestHeader("Accept", "application/json");
-	        xhr.setRequestHeader("Content-Type", "application/json");
-	    }
-	    ,   data     : param
-	    ,   success : function(result){
-	    	alert(result.msg);
-	    	alert(result.login);
-	    }
-	    ,   error : function(xhr, status, e) {
-		    	alert("에러 : "+e);
-		},
-		done : function(e) {
-		}
-		});
+		var a = { 
+		        type     : "POST"
+		    	    ,   url      : "/user/login_ok.jsp"
+		    	    ,   dataType : "json" 
+		    	    ,   beforeSend: function(xhr) {
+		    	        xhr.setRequestHeader("Accept", "application/json");
+		    	        xhr.setRequestHeader("Content-Type", "application/json");
+		    	    }
+		    	    ,   data     : param
+		    	    ,   success : function(result){
+		    	    	alert(result.msg);
+		    	    	//alert(result.login);
+		    	    	if(result.login=="ok"){
+		    	    		location.href = "<%=rootPath%>/main.jsp";
+		    	    	}else{
+		    	    		$("#id").val("");
+		    	    		$("#pwd").val("");
+		    	    	}
+		    	    }
+		    	    ,   error : function(xhr, status, e) {
+		    		    	alert("에러 : "+e);
+		    		},
+		    		done : function(e) {
+		    		}
+		    		};
+		$.ajax(a);
 	});
 </script>
 </body>

@@ -5,7 +5,7 @@
 <%@ page import="com.test.common.DBConn" %>
 <%@ page import="com.test.dto.BoardInfo" %>
 <body>
-<jsp:include page="/common/top.jsp" flush="fasle"></jsp:include>
+<%-- <jsp:include page="/common/top.jsp" flush="fasle"></jsp:include> --%>
 <div class="container">
       <div class="starter-template">
 <%

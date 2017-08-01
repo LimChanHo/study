@@ -5,7 +5,6 @@
 <%@ page import="com.test.common.DBConn" %>
 <%@ page import="com.test.dto.BoardInfo" %>
 <body>
-<jsp:include page="/common/top.jsp" flush="fasle"></jsp:include>
 <script>
 function goBoard(biNum,param2){
 	location.href ="<%=rootPath%>/board/board_view.jsp?binum=" + biNum;
