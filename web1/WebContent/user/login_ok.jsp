@@ -6,7 +6,6 @@
 <%@ page import="org.json.simple.JSONObject" %>
 <%@ page import="java.util.*" %>
 <%@ page import="com.google.gson.*" %>
-
 <%
 JSONObject j = new Gson().fromJson(request.getReader(), JSONObject.class);
 String id = (String)j.get("id");

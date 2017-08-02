@@ -7,6 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<form action="login_ok.jsp" method="post">
+<input type="text" name="id"/>
+<input type="text" name="pwd"/>
+<input type="submit"/>
+</form>
 </body>
 </html>
