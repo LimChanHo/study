@@ -9,6 +9,7 @@
 var a = {a:1, b:1};
 var b = {a:2, b:2};
 var c = {a:3, b:3};
+alert(a);
 var list = [{"result":"4","calnum":"6","op":"+","num1":"2","num2":"2"},
 	{"result":"4","calnum":"7","op":"+","num1":"2","num2":"2"},
 	{"result":"1","calnum":"8","op":"-","num1":"4","num2":"3"},
@@ -20,6 +21,16 @@ $("#getCal").click(function(){
 		alert(m.result);
 	}
 });
+</script>
+<script>
+var list2 = [{"result" : "4","calnum":"6"},{"result" : "4","calnum":"6"},{"result" : "4","calnum":"6"}];
+$("#getCal").click(function(){
+	for(var i=0, max=list.length;i<max;i++){
+		var hm = list[i];
+		alert(hm.calnum);
+	}
+});
+
 </script>
 </body>
 </html>

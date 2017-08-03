@@ -1,34 +1,54 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/common/header.jsp"%>
+    <%@ include file="/common/header.jsp"%>
 
-	<div class="container">
+<table border="2">
+<tr>
+<td>jtnum: <input type ="text" id = "num"></td>
+</tr>
+<tr>
+<td>jttext: <input type = "text" id = "text"></td>
+</tr>
+<tr>
+<td align="center"><input type ="button" id="jtinsert" value="insert"/></td>
+</tr>
+<tr>
+
+</tr>
+</table>
+<br/>
+<br/>
+<br/>
+
+<div class="container">
 		<table id="table" data-height="460"
 			class="table table-bordered table-hover">
 			<thead>
 				<tr>
-					<th data-field="calnum"  class="text-center">번호</th>
-					<th data-field="num1"  class="text-center">숫자1</th>
-					<th data-field="num2"  class="text-center">숫자2</th>
-					<th data-field="op"  class="text-center">연산자</th>
-					<th data-field="result"  class="text-center">결과값</th>
+					<th data-field="num"  class="text-center">번호</th>
+					<th data-field="text"  class="text-center">내용</th>
 				</tr>
 			</thead>
 			<tbody id="result_tbody">
 			</tbody>
 		</table>
 	</div>
-연산자 : <input type="text" id="op"/><input type="button" id="getCal" value="계산리스트호출"/>
+	번호 : <input type="text" id="num1"/><td align="center"><input type ="button" id="jtselect" value="select"/></td>
 <div id="result_div" class="container"></div>
+
+
+
 <script>
-$("#getCal").click(function(){
-	var op = $("#op").val();
+$("input[id*=insert]").click(function(){
+	var num = $("#num").val();
+	var text = $("#text").val();
 	var param = {};
-	param["op"] = op;
+	param["num"] = num;
+	param["text"] = text;
 	param = JSON.stringify(param);
 	var a = { 
-	        type     : "POST"
-	    	    ,   url      : "/test/cal_select.jsp"
+	        type     : "POST" //url에 값이 찍히느냐 안찍히느냐의 차이
+	    	    ,   url      : "/test/json_cal_ok.jsp"
 	    	    ,   dataType : "json" 
 	    	    ,   beforeSend: function(xhr) {
 	    	        xhr.setRequestHeader("Accept", "application/json");
@@ -36,10 +56,7 @@ $("#getCal").click(function(){
 	    	    }
 	    	    ,   data     : param
 	    	    ,   success : function(result){
-	    	    	alert(result);
-		    	        $('#table').bootstrapTable({
-		    	            data: result
-		    	        });
+		    	        alert(result.result);
 	    	    }
 	    	    ,   error : function(xhr, status, e) {
 	    		    	alert("에러 : "+e);
@@ -50,29 +67,29 @@ $("#getCal").click(function(){
 	$.ajax(a);
 });
 
-$("input[id*='cal']").click(function(){
-	var id = this.id;
-	var idx = id.substring(id.length-1);
-	var num1 = $("#num"+ idx + "_1").val();
-	var num2 = $("#num"+ idx + "_2").val();
 
+$("#jtselect").click(function(){
+	var num1 = $("#num1").val();
 	var param = {};
 	param["num1"] = num1;
-	param["num2"] = num2;
-	param["op"] = ops[idx];
 	param = JSON.stringify(param);
 	var a = { 
 	        type     : "POST"
-	    	    ,   url      : "/test/cal_ok.jsp"
+	    	    ,   url      : "/test/json_cal_select.jsp"
 	    	    ,   dataType : "json" 
 	    	    ,   beforeSend: function(xhr) {
 	    	        xhr.setRequestHeader("Accept", "application/json");
 	    	        xhr.setRequestHeader("Content-Type", "application/json");
 	    	    }
 	    	    ,   data     : param
-	    	    ,   success : function(result){ 
-	    	    	alert(result.insert);
-	    	    	$("#result" + idx).val(result.num);  
+	    	    ,   success : function(result){
+	    	        $('#table').bootstrapTable({
+	    	            data: result
+	    	        });
+// 	    	    	for(var i=0, max=result.length;i<max;i++){
+// 	    	    		var results = result[i]; 
+// 		    	    	$("#result_div").append(results.num + "," + results.text +"<br/>");
+// 	    	    	}
 	    	    }
 	    	    ,   error : function(xhr, status, e) {
 	    		    	alert("에러 : "+e);

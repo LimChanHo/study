@@ -1,28 +1,42 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/common/header.jsp"%>
+<input type="text" id="num1_1">
++
+<input type="text" id="num1_2">
+<input type="button" value="계산"  id="cal1">
+<input type="text" id="result1">
 
-	<div class="container">
-		<table id="table" data-height="460"
-			class="table table-bordered table-hover">
-			<thead>
-				<tr>
-					<th data-field="calnum"  class="text-center">번호</th>
-					<th data-field="num1"  class="text-center">숫자1</th>
-					<th data-field="num2"  class="text-center">숫자2</th>
-					<th data-field="op"  class="text-center">연산자</th>
-					<th data-field="result"  class="text-center">결과값</th>
-				</tr>
-			</thead>
-			<tbody id="result_tbody">
-			</tbody>
-		</table>
-	</div>
+<br/>
+
+<input type="text" id="num2_1">
+-
+<input type="text" id="num2_2">
+<input type="button" value="계산"  id="cal2">
+<input type="text" id="result2">
+
+<br/>
+
+<input type="text" id="num3_1">
+*
+<input type="text" id="num3_2">
+<input type="button" value="계산"  id="cal3">
+<input type="text" id="result3">
+
+<br/>
+<input type="text" id="num4_1">
+/
+<input type="text" id="num4_2">
+<input type="button" value="계산"  id="cal4">
+<input type="text" id="result4">
+<p/>
 연산자 : <input type="text" id="op"/><input type="button" id="getCal" value="계산리스트호출"/>
 <div id="result_div" class="container"></div>
 <script>
+var ops = ["","+","-","*","/"];
 $("#getCal").click(function(){
 	var op = $("#op").val();
+
 	var param = {};
 	param["op"] = op;
 	param = JSON.stringify(param);
@@ -35,11 +49,12 @@ $("#getCal").click(function(){
 	    	        xhr.setRequestHeader("Content-Type", "application/json");
 	    	    }
 	    	    ,   data     : param
-	    	    ,   success : function(result){
-	    	    	alert(result);
-		    	        $('#table').bootstrapTable({
-		    	            data: result
-		    	        });
+	    	    ,   success : function(results){ 
+	    	    	alert(results);
+	    	    	for(var i=0, max=results.length;i<max;i++){
+	    	    		var result = results[i]; 
+		    	    	$("#result_div").append(result.calnum + "," + result.num1 +","+result.op +","+ result.num2+"<br/>");
+	    	    	}
 	    	    }
 	    	    ,   error : function(xhr, status, e) {
 	    		    	alert("에러 : "+e);
@@ -49,7 +64,6 @@ $("#getCal").click(function(){
 	    		};
 	$.ajax(a);
 });
-
 $("input[id*='cal']").click(function(){
 	var id = this.id;
 	var idx = id.substring(id.length-1);
@@ -60,7 +74,7 @@ $("input[id*='cal']").click(function(){
 	param["num1"] = num1;
 	param["num2"] = num2;
 	param["op"] = ops[idx];
-	param = JSON.stringify(param);
+ 	param = JSON.stringify(param);
 	var a = { 
 	        type     : "POST"
 	    	    ,   url      : "/test/cal_ok.jsp"
