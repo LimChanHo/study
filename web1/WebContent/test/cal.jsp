@@ -37,6 +37,7 @@ $("#getCal").click(function(){
 	    	    ,   data     : param
 	    	    ,   success : function(result){
 	    	    	alert(result);
+	    	    	alert(result);
 		    	        $('#table').bootstrapTable({
 		    	            data: result
 		    	        });

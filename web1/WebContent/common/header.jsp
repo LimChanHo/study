@@ -94,6 +94,8 @@ function doMovePage(pageId){
             <li><a href="/board/board_select.jsp">게시판가기</a></li>
             <li><a href="/user/user_info.jsp">유저정보가기</a></li>
             <li><a href="/role/role_select.jsp">권한정보가기</a></li>
+            <li><a href="/goods/company.jsp">회사&제품 정보가기</a></li>
+            <li><a href="/role/role_select.jsp">회사&제품 입력가기</a></li>
             <li><a href="/user/logout_ok.jsp"><%=loginStr %></a></li>
           </ul>
           
