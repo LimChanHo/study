@@ -11,14 +11,15 @@ String vinumStr = hm.get("vinum");
 int vinum = Integer.parseInt(vinumStr);
 Connection con = null;
 PreparedStatement ps = null;
-ArrayList<Map<String, String>> calList = new ArrayList<Map<String, String>>();
+ArrayList<Map<String, String>> vendorList = new ArrayList<Map<String, String>>();
+ArrayList<Map<String, String>> goodsList = new ArrayList<Map<String, String>>();
 try{
 	con = DBConn.getCon();
     
 	String sql = "";
 	
-	if(vinum!=0){
-		sql = "select* from vendor_info vi,goods_info gi where gi.VINUM=vi.vinum and vi.vinum= ?";
+	if(vinumStr==null || vinumStr.equals("")){
+		sql = "select* from vendor_info vi,goods_info gi where gi.VINUM=vi.vinum";
 	}
 	if(vinum==0){
 		sql = "select* from vendor_info vi,goods_info gi where gi.VINUM=vi.vinum";
@@ -30,17 +31,23 @@ try{
 	ResultSet rs = ps.executeQuery();
 	while(rs.next()){
 			Map<String, String> hm1 = new HashMap<String, String>();
-			hm1.put("vinum", rs.getString("vinum"));
 			hm1.put("viname", rs.getString("viname"));
-			hm1.put("videsc", rs.getString("videsc"));
-			hm1.put("viaddress", rs.getString("viaddress"));
-			hm1.put("viphone", rs.getString("viphone"));
+			hm1.put("ginum", rs.getString("ginum"));
 			hm1.put("giname", rs.getString("giname"));
 			hm1.put("gidesc", rs.getString("gidesc"));
-			hm1.put("gicredat", rs.getString("gicredat"));
-			hm1.put("gicretim", rs.getString("gicretim"));
-			calList.add(hm1);
+			vendorList.add(hm1);
 	}
+	sql = "select * from vendor_info";
+	ps = con.prepareStatement(sql);	
+	rs = ps.executeQuery();
+	while (rs.next()) {
+		Map<String, String> hm1 = new HashMap<String, String>();
+		hm1.put("vinum", rs.getString("vinum"));
+		hm1.put("viname", rs.getString("viname"));
+		goodsList.add(hm1);
+	}
+	
+	
 }catch(Exception e){
 	System.out.println(e);
 }finally{
@@ -50,8 +57,11 @@ try{
 	}
 	DBConn.closeCon();
 }
+Map<String, List> hm2 = new HashMap<String, List>();
+hm2.put("calList",vendorList);
+hm2.put("goodsList",goodsList);
 
-String json = g.toJson(calList);
+String json = g.toJson(hm2);
 System.out.println(json);
 out.print(json);
 %>

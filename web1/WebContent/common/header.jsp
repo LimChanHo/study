@@ -47,15 +47,17 @@ String loginStr = "로그인";
 if(login){
 	loginStr = "로그아웃";
 }
+String version = "1.2";
 %>
-<script src="<%=rootPath%>/js/jquery-3.2.1.js"></script>
-<script src="<%=rootPath%>/ui/btsp3.7.7/js/bootstrap.min.js"></script>
-<script src="<%=rootPath%>/ui/btsp3.7.7/js/bootstrap-table.js"></script>
-<link rel="stylesheet" href="<%=rootPath%>/ui/btsp3.7.7/css/bootstrap-theme.min.css"/>
-<link rel="stylesheet" href="<%=rootPath%>/ui/btsp3.7.7/css/bootstrap.min.css"/>
-<link rel="stylesheet" href="<%=rootPath%>/ui/btsp3.7.7/css/bootstrap-table.css"/>
-<link rel="stylesheet" href="<%=rootPath%>/ui/common.css"/>
+<script src="<%=rootPath%>/js/jquery-3.2.1.js?version=<%=version%>"></script>
+<script src="<%=rootPath%>/ui/btsp3.7.7/js/bootstrap.min.js?version=<%=version%>"></script>
+<script src="<%=rootPath%>/ui/btsp3.7.7/js/bootstrap-table.js?version=<%=version%>"></script>
+<link rel="stylesheet" href="<%=rootPath%>/ui/btsp3.7.7/css/bootstrap-theme.min.css?version=<%=version%>"/>
+<link rel="stylesheet" href="<%=rootPath%>/ui/btsp3.7.7/css/bootstrap.min.css?version=<%=version%>"/>
+<link rel="stylesheet" href="<%=rootPath%>/ui/btsp3.7.7/css/bootstrap-table.css?version=<%=version%>"/>
+<link rel="stylesheet" href="<%=rootPath%>/ui/common.css?version=<%=version%>"/>
 <script>
+
 var rootPath = "<%=rootPath%>";
 $(document).ready(function(){
 	var nowUrl = "<%=nowUrl%>";
@@ -73,11 +75,7 @@ function doMovePage(pageId){
 	location.href=url;
 }
 </script>
-<head>
-<title>IOT MAIN</title>
-</head>
 <body>
- <%--top--%>
 <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -97,14 +95,13 @@ function doMovePage(pageId){
             <li><a href="/goods/company.jsp">회사&제품 정보가기</a></li>
             <li><a href="/role/role_select.jsp">회사&제품 입력가기</a></li>
             <li><a href="/user/logout_ok.jsp"><%=loginStr %></a></li>
-          </ul>
+           </ul>
           
         </div><!--/.nav-collapse -->
       </div>
     </nav>
-     <%--top--%>
-    <%--bottom--%>
-    <div class="mastfoot">
+    
+          <div class="mastfoot">
             <div class="inner">
               <p>Cover template for <a href="https://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
             </div>
@@ -112,4 +109,4 @@ function doMovePage(pageId){
           <br><p>
 </body>
 </html>
- <%--bottom--%>
+    
