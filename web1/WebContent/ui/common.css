@@ -15,3 +15,8 @@ body {
     margin-left: -300px;
     color:red;
 }
+ul[class='pagination']>li>a:hover{
+	background-color : cold;
+	color: red;
+	cursor:pointer;
+}

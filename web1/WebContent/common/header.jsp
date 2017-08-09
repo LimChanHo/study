@@ -47,7 +47,7 @@ String loginStr = "로그인";
 if(login){
 	loginStr = "로그아웃";
 }
-String version = "1.2";
+String version = "1.2.2"; //css나 js를 바꿧을때 버전을 바꿔주면 다른 파일로 읽어들임
 %>
 <script src="<%=rootPath%>/js/jquery-3.2.1.js?version=<%=version%>"></script>
 <script src="<%=rootPath%>/ui/btsp3.7.7/js/bootstrap.min.js?version=<%=version%>"></script>
@@ -57,6 +57,40 @@ String version = "1.2";
 <link rel="stylesheet" href="<%=rootPath%>/ui/btsp3.7.7/css/bootstrap-table.css?version=<%=version%>"/>
 <link rel="stylesheet" href="<%=rootPath%>/ui/common.css?version=<%=version%>"/>
 <script>
+
+Number.prototype.equals = function(obj){
+	if(obj instanceof Numver){
+		return this.toString() == obj.toString();
+	}
+	return this==obj;
+}
+
+function setPagination(sNum, eNum, nPage, nTotal, objId){
+	var pageStr = "";
+	if(nPage==1){
+		pageStr += "<li class='disabled'><a >◀◀</a></li>";
+		pageStr += "<li class='disabled' ><a >◀</a></li>";
+	}else{ 
+		pageStr += "<li><a>◀◀</a></li>";
+		pageStr += "<li><a>◀</a></li>";
+	}
+	for(var i=sNum, max=eNum;i<=max;i++){
+		if(i==nPage){
+			pageStr += "<li class='active'><a>" + i + "</a></li>";
+		}else{
+			pageStr += "<li><a>" + i + "</a></li>";
+		}
+	}
+	if(nPage==nTotal){
+		pageStr += "<li class='disabled'><a>▶</a></li>";
+		pageStr += "<li class='disabled'><a>▶▶</a></li>";
+	}else{ 
+		pageStr += "<li><a>▶</a></li>";
+		pageStr += "<li><a>▶▶</a></li>";
+	}
+
+	$("#" + objId).html(pageStr);
+}
 
 var rootPath = "<%=rootPath%>";
 $(document).ready(function(){
@@ -73,6 +107,29 @@ function doMovePage(pageId){
 		url += "/board/board_insert.jsp";
 	}
 	location.href=url;
+}
+
+function alertOp(){
+	alert($("#op").val());
+}
+function goPage(pParams, pUrl, pCallBackFunc){
+	var params = JSON.stringify(pParams);
+	$.ajax({ 
+    		type     : "POST"
+	    ,   url      : pUrl
+	    ,   dataType : "json" 
+	    ,   beforeSend: function(xhr) {
+	        xhr.setRequestHeader("Accept", "application/json");
+	        xhr.setRequestHeader("Content-Type", "application/json");
+	    }
+	    ,   data     : params
+	    ,   success : pCallBackFunc
+	    ,   error : function(xhr, status, e) {
+		    	alert("에러 : "+e);
+		},
+		complete  : function() {
+		}
+	});
 }
 </script>
 <body>
@@ -93,7 +150,7 @@ function doMovePage(pageId){
             <li><a href="/user/user_info.jsp">유저정보가기</a></li>
             <li><a href="/role/role_select.jsp">권한정보가기</a></li>
             <li><a href="/goods/company.jsp">회사&제품 정보가기</a></li>
-            <li><a href="/role/role_select.jsp">회사&제품 입력가기</a></li>
+            <li><a href="/goods/goods_list.jsp">회사&제품 입력가기</a></li>
             <li><a href="/user/logout_ok.jsp"><%=loginStr %></a></li>
            </ul>
           

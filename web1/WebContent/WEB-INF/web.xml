@@ -32,6 +32,14 @@
 		<servlet-name>CalServlet</servlet-name>
 		<url-pattern>*.cal</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>GoodsServlet</servlet-name>
+		<servlet-class>com.test.servlet.GoodsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GoodsServlet</servlet-name>
+		<url-pattern>*.goods</url-pattern>
+	</servlet-mapping>
 	<filter>
 		<filter-name>Set Character Encoding</filter-name>
 		<filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
