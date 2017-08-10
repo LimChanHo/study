@@ -57,9 +57,11 @@
 				totalBlockCnt +=1;
 			}
 		}
-		System.out.println(totalCnt);
-		System.out.println(totalPageCnt);
-		System.out.println(totalBlockCnt);
+// 		System.out.println("totalCnt="+totalCnt);
+// 		System.out.println("totalPageCnt="+totalPageCnt);
+// 		System.out.println("totalBlockCnt="+totalBlockCnt);
+// 		System.out.println("nowPage="+nowPage);
+// 		System.out.println("rowCnt="+rowCnt);
 		sql = "select gi.ginum, gi.giname, gi.gidesc, vi.vinum, vi.viname from goods_info as gi, vendor_info as vi where gi.vinum=vi.vinum";
 		sql += " order by gi.ginum ";
 		sql += " limit ?,?";

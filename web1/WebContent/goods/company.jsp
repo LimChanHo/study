@@ -61,11 +61,13 @@ function callback(results){
     });
     setEvent();
 }
+
 $(document).ready(function(){
 	var params = {};
 	params["nowPage"] = "1";
 	goPage(params, "/goods/vendor_select.jsp", callback);
 });
+
 function setEvent(){
 	$("ul[class='pagination']>li:not([class='disabled'])>a").click(function(){
 		var goPageNum = new Number(this.innerHTML);

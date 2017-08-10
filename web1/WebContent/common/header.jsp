@@ -59,7 +59,7 @@ String version = "1.2.2"; //css나 js를 바꿧을때 버전을 바꿔주면 다
 <script>
 
 Number.prototype.equals = function(obj){
-	if(obj instanceof Numver){
+	if(obj instanceof Number){
 		return this.toString() == obj.toString();
 	}
 	return this==obj;
@@ -81,14 +81,13 @@ function setPagination(sNum, eNum, nPage, nTotal, objId){
 			pageStr += "<li><a>" + i + "</a></li>";
 		}
 	}
-	if(nPage==nTotal){
+	if(nPage.equals(nTotal)){
 		pageStr += "<li class='disabled'><a>▶</a></li>";
 		pageStr += "<li class='disabled'><a>▶▶</a></li>";
 	}else{ 
 		pageStr += "<li><a>▶</a></li>";
 		pageStr += "<li><a>▶▶</a></li>";
 	}
-
 	$("#" + objId).html(pageStr);
 }
 
