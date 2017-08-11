@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/common/header.jsp"%>
+<%@ include file="/ui/common.js"%>
 
 <div class="container">
 	<table id="table" data-height="460"
@@ -50,7 +51,7 @@ function callback(results){
 	if(endBlock>totalPageCnt){
 		endBlock = totalPageCnt;
 	}
-	setPagination(startBlock, endBlock, nowPage, totalPageCnt, "page");
+	makePagination(startBlock, endBlock, nowPage, totalPageCnt, "page");
 	
 	for(var i=0, max=vendorList.length;i<max;i++){
 		$("#s_vendor").append("<option value='" + vendorList[i].vinum + "'>"+vendorList[i].viname +"</option>")
@@ -65,7 +66,7 @@ function callback(results){
 $(document).ready(function(){
 	var params = {};
 	params["nowPage"] = "1";
-	goPage(params, "/goods/vendor_select.jsp", callback);
+	movePageWithAjax(params, "/goods/vendor_select.jsp", callback);
 });
 
 function setEvent(){
@@ -90,7 +91,7 @@ function setEvent(){
 		}
 		var params = {};
 		params["nowPage"] = "" + goPageNum;
-		goPage(params, "/goods/vendor_select.jsp", callback);
+		movePageWithAjax(params, "/goods/vendor_select.jsp", callback);
 	})
 }
 </script>

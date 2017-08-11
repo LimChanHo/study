@@ -22,12 +22,12 @@
 	<ul class="pagination" id="page">
 	</ul>
 </div>
-<!-- <select id="s_vendor"> -->
-<!-- <option value="">회사선택</option> -->
-<!-- </select>  -->
-<!-- 연산자 : -->
-<!-- <input type="text" id="op" /> -->
-<!-- <input type="button" id="getCal" value="계산리스트호출" /> -->
+<select id="s_vendor">
+<option value="">회사선택</option>
+</select> 
+연산자 :
+<input type="text" id="op" />
+<input type="button" id="getCal" value="계산리스트호출" />
 <div id="result_div" class="container"></div>
 <script>
 var thisBlockCnt = 0;
@@ -48,13 +48,14 @@ function callback(results){
 	if(endBlock>totalPageCnt){
 		endBlock = totalPageCnt;
 	}
-	setPagination(startBlock, endBlock, nowPage, totalPageCnt, "page");
+	makePagination(startBlock, endBlock, nowPage, totalPageCnt, "page");
 	
- 	setEvent(pageInfo);
+ 	setEvent(pageInfo,"/list.goods");
     $('#table').bootstrapTable('destroy');
     $('#table').bootstrapTable({
         data: goodsList
     });
+	
 }
 $(document).ready(function(){
 	var page = {};
@@ -63,9 +64,9 @@ $(document).ready(function(){
 	params["page"] = page;
 	params["command"] = "list";
 	
-	goPage(params, "/list.goods", callback);
+	movePageWithAjax(params, "/list.goods", callback);
 });
-function setEvent(pageInfo){
+function setEvent(pageInfo,pUrl){
 	$("ul[class='pagination']>li:not([class='disabled'])>a").click(function(){
 		var thisNowPage = pageInfo.nowPage;
 		var goPageNum = new Number(this.innerHTML);
@@ -92,7 +93,7 @@ function setEvent(pageInfo){
 		var params = {};
 		params["page"] = page;
 		params["command"] = "list";
-		goPage(params, "/list.goods", callback);
+		movePageWithAjax(params, pUrl, callback);
 	})
 }
 </script>

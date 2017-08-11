@@ -27,7 +27,7 @@ function callback(results) {
 	}
 }
 }
-goPage([testParam1,testParam2],"/testasdf.goods", callback);
+movePageWithAjax([testParam1,testParam2],"/testasdf.goods", callback);
 </script>
 </body>
 </html>

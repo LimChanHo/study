@@ -50,6 +50,7 @@ if(login){
 String version = "1.2.2"; //css나 js를 바꿧을때 버전을 바꿔주면 다른 파일로 읽어들임
 %>
 <script src="<%=rootPath%>/js/jquery-3.2.1.js?version=<%=version%>"></script>
+<script src="<%=rootPath%>/ui/common.js?version=<%=version%>"></script>
 <script src="<%=rootPath%>/ui/btsp3.7.7/js/bootstrap.min.js?version=<%=version%>"></script>
 <script src="<%=rootPath%>/ui/btsp3.7.7/js/bootstrap-table.js?version=<%=version%>"></script>
 <link rel="stylesheet" href="<%=rootPath%>/ui/btsp3.7.7/css/bootstrap-theme.min.css?version=<%=version%>"/>
@@ -58,38 +59,9 @@ String version = "1.2.2"; //css나 js를 바꿧을때 버전을 바꿔주면 다
 <link rel="stylesheet" href="<%=rootPath%>/ui/common.css?version=<%=version%>"/>
 <script>
 
-Number.prototype.equals = function(obj){
-	if(obj instanceof Number){
-		return this.toString() == obj.toString();
-	}
-	return this==obj;
-}
 
-function setPagination(sNum, eNum, nPage, nTotal, objId){
-	var pageStr = "";
-	if(nPage==1){
-		pageStr += "<li class='disabled'><a >◀◀</a></li>";
-		pageStr += "<li class='disabled' ><a >◀</a></li>";
-	}else{ 
-		pageStr += "<li><a>◀◀</a></li>";
-		pageStr += "<li><a>◀</a></li>";
-	}
-	for(var i=sNum, max=eNum;i<=max;i++){
-		if(i==nPage){
-			pageStr += "<li class='active'><a>" + i + "</a></li>";
-		}else{
-			pageStr += "<li><a>" + i + "</a></li>";
-		}
-	}
-	if(nPage.equals(nTotal)){
-		pageStr += "<li class='disabled'><a>▶</a></li>";
-		pageStr += "<li class='disabled'><a>▶▶</a></li>";
-	}else{ 
-		pageStr += "<li><a>▶</a></li>";
-		pageStr += "<li><a>▶▶</a></li>";
-	}
-	$("#" + objId).html(pageStr);
-}
+
+
 
 var rootPath = "<%=rootPath%>";
 $(document).ready(function(){
@@ -111,25 +83,7 @@ function doMovePage(pageId){
 function alertOp(){
 	alert($("#op").val());
 }
-function goPage(pParams, pUrl, pCallBackFunc){
-	var params = JSON.stringify(pParams);
-	$.ajax({ 
-    		type     : "POST"
-	    ,   url      : pUrl
-	    ,   dataType : "json" 
-	    ,   beforeSend: function(xhr) {
-	        xhr.setRequestHeader("Accept", "application/json");
-	        xhr.setRequestHeader("Content-Type", "application/json");
-	    }
-	    ,   data     : params
-	    ,   success : pCallBackFunc
-	    ,   error : function(xhr, status, e) {
-		    	alert("에러 : "+e);
-		},
-		complete  : function() {
-		}
-	});
-}
+
 </script>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
